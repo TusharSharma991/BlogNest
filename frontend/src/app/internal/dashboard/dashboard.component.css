@@ -1,0 +1,288 @@
+.dashboard-container {
+    display: flex;
+    padding: 1rem;
+    gap: 2rem;
+    padding-top: 80px;
+    background-color: aliceblue;
+    height: 100vh;
+
+}
+
+.filter>span {
+    margin: 1%;
+    background-color: rgb(207, 207, 207);
+    border-radius: 10px !important;
+    
+}
+
+.active-filter {
+    background-color: darkcyan !important;
+    color: white !important;
+  }
+  
+
+.content-area {
+    padding: 0 2%;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow-y: scroll;
+    max-height: calc(100vh - 2rem);
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+    position: relative;
+}
+
+.content-area::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.sidebar {
+    flex: 1;
+    position: sticky;
+    top: 1rem;
+    height: fit-content;
+}
+
+.profile-card {
+    border: 1px solid #ccc;
+    width: 25vw;
+    height: 500px;
+
+    padding: 5% 2%;
+    border-radius: 30px;
+    text-align: center;
+    background-color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.profile-card > .top {
+    position: relative; /* Set the container as relative */
+    display: inline-block; /* Ensures the container fits the image */
+  }
+  
+  /* .profile-card > .top > img {
+    display: block;
+    width: 100px; 
+    height: auto;
+  } */
+  
+  .profile-card > .top > span {
+    position: absolute;
+    background-color: darkcyan;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 10%;
+    right: 10%;
+    cursor: pointer;
+    border: 3px solid white;
+  }
+  
+
+.profile-card>.top>span>i {
+    color: white;
+}
+
+.profile-card img {
+    width: 200px;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+    border: 3px solid darkcyan;
+}
+
+.profile-card>.details>p {
+    font-size: 18px;
+    font-weight: bold;
+    color: gray;
+}
+
+
+.imgCropperFooter {
+    display: flex;
+    justify-content: flex-end;
+    /* padding: 0.5rem 1rem; */
+    padding-top: 2%;
+    border-top: 2px solid lightgray;
+}
+
+.imgCropperFooter i {
+    font-size: 30px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin: 1%;
+}
+
+.imgCropperFooter i:hover {
+    transform: scale(1.2);
+
+}
+
+
+
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-header>div>i {
+    color: darkcyan;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.menu-icon {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+  
+
+.blog-card {
+    height: 300px; 
+    padding: 1% 2% 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.blog-card:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    cursor: pointer;
+}
+
+.blog-card > .header {
+    position: absolute;
+    width: 96%;
+    top: 0;
+    height: 70px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.blog-card>.header>.right {
+    display: flex;
+    align-items: center;
+}
+
+
+.actionButton {
+    padding: 6px 13px;
+    border-radius: 2px;
+    background-color: white;
+    color: black;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+::ng-deep .mat-mdc-menu-panel {
+    background: white !important;
+}
+
+.actionMenuButton {
+    width: 100%;
+    border-radius: 0px;
+    border: none;
+    transition: all 0.5s ease;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 8px 20px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.actionMenuButton:hover {
+    background-color: #d2d4d8;
+}
+
+.blog-card > .content {
+    flex: 1;
+    padding: 0 1%;
+    overflow-y: hidden;
+    padding-top: 40px;
+}
+
+.blog-card>.content>.description-content {
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: inherit;
+    color: gray;
+}
+
+.blog-card > .bottom {
+    height: 70px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid lightgray;
+    padding: 0 1%;
+}
+
+
+.blog-card>.bottom>.left>p {
+    font-weight: bold;
+}
+
+
+.postedBy {
+    display: flex;
+    align-items: center;
+    width: 200px;
+}
+
+.postedBy>.img>img {
+    border-radius: 50%;
+    height: 40px;
+    margin-right: 2%;
+    border: 3px solid darkcyan;
+}
+
+.postedBy>.name {
+    margin-left: 5%;
+}
+
+.postedBy>.name>p {
+    font-weight: bold;
+}
+
+.p-error {
+    font-size: 12px;
+    color: red;
+}
+
+.p-fluid {
+    margin-bottom: 1rem;
+}
+
+.p-field {
+    margin-bottom: 1rem;
+}
+
+.p-field>label {
+    font-weight: bold;
+    margin-bottom: 2%;
+}
+
+::ng-deep .p-inputtextarea, ::ng-deep .p-inputtext {
+    margin-top: 1%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.buttons>button {
+   width: 200px;
+}

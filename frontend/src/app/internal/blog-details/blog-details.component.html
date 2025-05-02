@@ -1,0 +1,77 @@
+<div class="coverDiv">
+    <div class="postedBy">
+        <div class="img">
+            <img [src]="blog.avatarUrl" alt="Profile picture">
+        </div>
+
+        <div class="name">
+            <p>{{blog.createdBy.name}}</p>
+        </div>
+    </div>
+
+    <div class="blogDetails">
+        <h2> <span>{{blog.title}}</span> </h2>
+
+        <div class="details">
+            <pre class="description-content">{{ blog.description }}</pre>
+        </div>
+
+
+    </div>
+
+    <div class="comments">
+
+        <div class="add">
+            <p>Add Comment</p>
+            <textarea [(ngModel)]="comment" pInputTextarea autoResize="true" rows="3"></textarea>
+
+            <div class="button">
+                <button pButton type="submit" label="Post" (click)="postComment()"></button>
+            </div>
+        </div>
+
+
+        <p-accordion>
+            <p-accordionTab [header]="'Comments'">
+
+                <div class="p-field logger" *ngFor="let comment of comments">
+                    <div class="header">
+                        <div class="postedBy">
+                            <div class="img">
+                                <img [src]="comment.avatar" alt="Profile picture">
+                            </div>
+                            <div class="name">
+                                <p>{{ comment.user.name }}</p>
+                            </div>
+                        </div>
+                        <div class="time">
+                            {{ comment.created_at | date: 'MMM d, y, h:mm a' }}
+                        </div>
+                    </div>
+
+                    <textarea pInputTextarea [(ngModel)]="comment.content" autoResize="true" rows="3"
+                        readonly></textarea>
+
+                    <!-- <div class="reply">
+                        <span (click)="toggleAdditionalComment(comment._id)">
+                            <i class="fa-solid fa-reply"></i>
+                        </span>
+                    </div> -->
+
+                    <!-- <div *ngIf="activeCommentId === comment._id" class="additionalComment">
+                        <textarea pInputTextarea [(ngModel)]="additionalComment" autoResize="true" rows="3"></textarea>
+                        <div class="button">
+                            <button pButton type="submit" label="Post"
+                                (click)="postAdditionalComment(comment._id)"></button>
+                            <button pButton type="submit" label="Cancel"
+                                (click)="toggleAdditionalComment(comment._id)"></button>
+                        </div>
+                    </div> -->
+                </div>
+
+            </p-accordionTab>
+
+        </p-accordion>
+    </div>
+
+</div>

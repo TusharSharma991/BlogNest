@@ -1,0 +1,143 @@
+.mainDiv {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(220, 229, 245, 255);
+}
+
+
+.loginBox {
+    background-color: rgba(241, 247, 254, 255);
+    border-radius: 20px;
+    padding: 2%;
+    width: 20vw;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15%;
+}
+
+.logo>span {
+    border-radius: 50%;
+    background-color: darkcyan;
+    padding: 10%;
+}
+
+.logo>span>i {
+    font-size: 30px;
+    color: white;
+}
+
+.form-group>label {
+    color: #606060;
+    margin-bottom: 2%;
+}
+
+
+/* Common styling for both input and p-password */
+input,
+p-password ::ng-deep input {
+    background-color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Placeholder styling */
+input::placeholder,
+p-password ::ng-deep input::placeholder {
+    color: #aaa;
+    /* light gray */
+}
+
+/* Optional: remove outline on focus and enhance shadow */
+input:focus,
+p-password ::ng-deep input:focus {
+    box-shadow: 0 0 0 2px rgba(100, 149, 237, 0.2);
+    /* light blue focus ring */
+}
+
+:host ::ng-deep p-password .p-password-icon {
+    color: gray !important;
+    fill: gray !important;
+  }
+
+
+::ng-deep .p-password {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.button {
+    display: flex;
+    justify-content: center;
+    margin-top: 15%;
+}
+
+.button>button {
+    background-color: darkcyan;
+    border-radius: 20px !important;
+    color: white;
+    border: transparent;
+    padding: 5%;
+    width: 100%;
+}
+
+.others {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10%;
+}
+
+.others>p {
+    color: gray;
+    font-size: 13px;
+}
+
+.others>p:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+@media (max-width: 920px) {
+
+    .loginBox {
+        width: 40vw;
+        /* padding: 5%; */
+    }
+}
+
+
+
+@media (max-width: 768px) {
+
+    .loginBox {
+        width: 40vw;
+        /* padding: 5%; */
+    }
+}
+
+
+@media (max-width: 430px) {
+
+    .loginBox {
+        width: 90vw;
+        padding: 5%;
+    }
+}

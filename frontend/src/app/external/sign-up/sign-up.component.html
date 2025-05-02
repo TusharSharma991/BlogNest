@@ -1,0 +1,73 @@
+<div class="mainDiv">
+    <div class="signUpBox">
+        <div class="logo">
+            <span>
+                <i class="fa-solid fa-hexagon-nodes"></i>
+            </span>
+        </div>
+
+        <form [formGroup]="signUpForm" class="formDiv">
+            <div>
+                <div class="form-group">
+                    <label for="username">Name <span style="color: red;">*</span> </label>
+                    <input pInputText type="text" formControlName="name" id="name"
+                        placeholder="Enter your name" />
+                </div>
+    
+                <div class="form-group">
+                    <label for="username">Email <span style="color: red;">*</span></label>
+                    <input pInputText type="text" formControlName="email" id="email"
+                        placeholder="Enter your email" />
+                </div>
+    
+            </div>
+
+            <div>   
+                <div class="form-group">
+                    <label for="username">Username <span style="color: red;">*</span></label>
+                    <input pInputText type="text" formControlName="username" id="username"
+                        placeholder="Enter your username" />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password <span style="color: red;">*</span></label>
+                    <p-password formControlName="password" inputId="password" [feedback]="false" [toggleMask]="true"
+                        placeholder="Enter your password"></p-password>
+                </div>
+    
+               
+            </div>
+            
+
+            <div>
+            
+    
+                <div class="form-group">
+                    <label for="password">Confirm Password <span style="color: red;">*</span></label>
+                    <p-password formControlName="confirmPassword" inputId="confirmPassword" [feedback]="false" [toggleMask]="true"
+                        placeholder="confirm password"></p-password>
+                </div>
+
+                <div class="form-group">
+                   
+                </div>
+    
+            </div>
+            
+            <div class="error">
+                <p>{{error}}</p>
+            </div>
+            
+
+            <div class="button">
+                <!-- <button pButton type="button" label="SignUp" (click)="onSubmit()"></button> -->
+                <button type="submit" (click)="onSubmit()"><span
+                        style="font-weight: bold; cursor: pointer;">SignUp</span></button>
+            </div>
+
+            <div class="others">
+                <p (click)="login()">Login</p>
+                <!-- <p>Forgot your password?</p> -->
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+.logger {
+    margin: 1rem 0;
+    padding: 1rem;
+    border-left: 2px solid lightgray;
+  }
+  
+  .nested-replies {
+    margin-left: 2rem;
+    border-left: 1px dashed #ccc;
+    padding-left: 1rem;
+  }
+  

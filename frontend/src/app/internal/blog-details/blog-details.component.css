@@ -1,0 +1,104 @@
+.coverDiv {
+    padding: 5%;
+    height: 80vh;
+}
+
+
+.postedBy {
+    display: flex;
+    align-items: center;
+    width: 200px;
+}
+
+.postedBy>.img>img {
+    border-radius: 50%;
+    height: 40px;
+    margin-right: 2%;
+    border: 3px solid darkcyan;
+}
+
+.postedBy>.name {
+    margin-left: 5%;
+}
+
+.postedBy>.name>p {
+    font-weight: bold;
+}
+
+
+.blogDetails {
+    padding: 2%;
+}
+
+.blogDetails>.details {
+    padding: 2%;
+    background-color: aliceblue;
+    /* height: 30vh; */
+    border-radius: 10px;
+    /* overflow-y: scroll; */
+}
+
+.add {
+    padding: 2%;
+}
+
+.add>p {
+    font-weight: bold;
+}
+
+.add>textarea {
+    width: 100%;
+}
+
+.add>.button {
+    margin-top: 2%;
+    text-align: right;
+}
+
+.comments {
+    padding-bottom: 5%;
+}
+
+.logger>.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2% 0;
+}
+
+.logger>textarea, .additionalComment>textarea {
+    width: 100%;
+}
+
+.reply {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.reply>span {
+    background-color: darkcyan;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reply>span>i {
+    color: white;
+}
+
+.additionalComment {
+    padding-left: 5%;
+}
+
+.button {
+    display: flex;
+    justify-content: flex-end;
+   
+}
+
+.button>button {
+    margin: 1%;
+}
