@@ -18,7 +18,7 @@ import {
 import { CommonService } from '../../common/common.service';
 import { AccordionModule } from 'primeng/accordion';
 import { TabViewModule } from 'primeng/tabview';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextarea } from 'primeng/inputtextarea';
 
 import { Menu, MenuModule } from 'primeng/menu';
 
@@ -39,8 +39,7 @@ import { catchError, map, Observable, of } from 'rxjs';
     FormsModule,
     AccordionModule,
     MenuModule,
-    InputTextareaModule,
-    CommentThreadComponent
+    InputTextarea,
   ],
   templateUrl: './blog-details.component.html',
   styleUrl: './blog-details.component.css'

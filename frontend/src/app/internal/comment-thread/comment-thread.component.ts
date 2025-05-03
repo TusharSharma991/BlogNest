@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextarea } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-comment-thread',
   standalone: true,
-  imports: [NgIf, NgFor, FormsModule, InputTextareaModule, ButtonModule, CommonModule],
+  imports: [NgIf, NgFor, FormsModule, InputTextarea, ButtonModule, CommonModule],
   templateUrl: './comment-thread.component.html',
   styleUrls: ['./comment-thread.component.css']
 })

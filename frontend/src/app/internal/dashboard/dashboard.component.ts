@@ -18,7 +18,7 @@ import {
 import { CommonService } from '../../common/common.service';
 import { AccordionModule } from 'primeng/accordion';
 import { TabViewModule } from 'primeng/tabview';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextarea } from 'primeng/inputtextarea';
 
 import { Menu, MenuModule } from 'primeng/menu';
 
@@ -45,7 +45,7 @@ import { MatDialog } from '@angular/material/dialog';
     FormsModule,
     AccordionModule,
     MenuModule,
-    InputTextareaModule,
+    InputTextModule,
     ImageCropperComponent,
     MatMenuModule
   ],
