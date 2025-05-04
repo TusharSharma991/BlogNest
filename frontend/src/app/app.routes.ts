@@ -30,7 +30,7 @@ export const routes: Routes = [
         path: 'dashboard', component: MainNavComponent,
         children: [
           {
-            path: 'dashboard',
+            path: 'main-dashboard',
             loadComponent: () =>
               import('../app/internal/dashboard/dashboard.component').then(
                 m => m.DashboardComponent
@@ -38,7 +38,7 @@ export const routes: Routes = [
           },
           {
             path: '',
-            redirectTo: 'dashboard',
+            redirectTo: 'main-dashboard',
             pathMatch: 'full'
           }
         ]
