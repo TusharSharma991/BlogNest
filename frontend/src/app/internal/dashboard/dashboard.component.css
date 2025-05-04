@@ -267,6 +267,8 @@
 
 .p-field {
     margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .p-field>label {

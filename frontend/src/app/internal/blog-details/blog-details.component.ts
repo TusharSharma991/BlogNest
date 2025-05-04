@@ -18,7 +18,7 @@ import {
 import { CommonService } from '../../common/common.service';
 import { AccordionModule } from 'primeng/accordion';
 import { TabViewModule } from 'primeng/tabview';
-import { InputTextarea } from 'primeng/inputtextarea';
+import { TextareaModule } from 'primeng/textarea';
 
 import { Menu, MenuModule } from 'primeng/menu';
 
@@ -38,8 +38,8 @@ import { catchError, map, Observable, of } from 'rxjs';
     InputNumberModule,
     FormsModule,
     AccordionModule,
+    TextareaModule,
     MenuModule,
-    InputTextarea,
   ],
   templateUrl: './blog-details.component.html',
   styleUrl: './blog-details.component.css'
@@ -139,7 +139,7 @@ export class BlogDetailsComponent {
          
         }  else {
           // Handle other error statuses
-          this.openSnackbar("Unexpected error occurred while fetching blogs.");
+          // this.openSnackbar("Unexpected error occurred while fetching blogs.");
         }
       },
       (error) => {
@@ -201,7 +201,7 @@ export class BlogDetailsComponent {
         return data?.avatar?.full ? this.cs.baseURL + data.avatar.full : '';
       }),
       catchError(err => {
-        console.warn(`Error fetching avatar for ${userId}:`, err);
+        // console.warn(`Error fetching avatar for ${userId}:`, err);
         return of(''); // fallback
       })
     );
@@ -213,7 +213,7 @@ export class BlogDetailsComponent {
     this.snackBar.open(message, '', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
-      duration: 2000,
+      duration: 20000,
       panelClass: ['custom-snackbar']
     });
   }

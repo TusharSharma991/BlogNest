@@ -2,7 +2,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 
-
 html,
 body {
   margin: 0;
@@ -51,8 +50,15 @@ p-password .p-password-icon.pi {
 
 .mat-mdc-snackbar-surface {
   box-shadow: none !important;
+  background-color: white;
+  color: black;
+  padding-right: 0px !important;
 }
 
+.mat-mdc-snack-bar-label, .mdc-snackbar__label {
+  background-color: white;
+  color: black;
+}
 
 
 /* Common styling for both input and p-password */

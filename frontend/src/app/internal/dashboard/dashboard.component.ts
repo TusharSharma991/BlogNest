@@ -7,9 +7,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { TextareaModule } from 'primeng/textarea';
 
-import { Router } from '@angular/router';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
@@ -47,7 +46,8 @@ import { MatDialog } from '@angular/material/dialog';
     MenuModule,
     InputTextModule,
     ImageCropperComponent,
-    MatMenuModule
+    MatMenuModule,
+    TextareaModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -414,7 +414,7 @@ export class DashboardComponent {
       },
       error: (err) => {
         console.warn('Error fetching avatar:', err);
-        this.userAvatarUrl = ''; // fallback will be used
+        this.userAvatarUrl = null; // fallback will be used
       }
     });
   }

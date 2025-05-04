@@ -8,7 +8,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 @Component({
   selector: 'app-comment-thread',
   standalone: true,
-  imports: [NgIf, NgFor, FormsModule, InputTextarea, ButtonModule, CommonModule],
+  imports: [NgIf, NgFor, FormsModule, ButtonModule, CommonModule],
   templateUrl: './comment-thread.component.html',
   styleUrls: ['./comment-thread.component.css']
 })
