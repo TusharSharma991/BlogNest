@@ -52,13 +52,13 @@
                     <textarea pInputTextarea [(ngModel)]="comment.content" autoResize="true" rows="3"
                         readonly></textarea>
 
-                    <!-- <div class="reply">
+                    <div class="reply">
                         <span (click)="toggleAdditionalComment(comment._id)">
                             <i class="fa-solid fa-reply"></i>
                         </span>
-                    </div> -->
+                    </div>
 
-                    <!-- <div *ngIf="activeCommentId === comment._id" class="additionalComment">
+                    <div *ngIf="activeCommentId === comment._id" class="additionalComment">
                         <textarea pInputTextarea [(ngModel)]="additionalComment" autoResize="true" rows="3"></textarea>
                         <div class="button">
                             <button pButton type="submit" label="Post"
@@ -66,7 +66,7 @@
                             <button pButton type="submit" label="Cancel"
                                 (click)="toggleAdditionalComment(comment._id)"></button>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
 
             </p-accordionTab>

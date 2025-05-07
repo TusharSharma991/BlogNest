@@ -62,7 +62,7 @@ export class DashboardComponent {
   blogForm!: FormGroup;
   displayDialog: boolean = false;
   blogs: any[] = [];
-  currentUser : any;
+  currentUser: any;
 
   selectedFilter: number = 0; // 0 = All, 1 = My Blogs
 
@@ -70,7 +70,7 @@ export class DashboardComponent {
   imageChangedEvent: any = '';
   croppedImage: string = '';
   showCropper = false;
-  userAvatarUrl : any;
+  userAvatarUrl: any;
   @ViewChild('fileInput') fileInput!: ElementRef;
   selectedBlog: any;
 
@@ -101,7 +101,7 @@ export class DashboardComponent {
 
     this.getBlogs();
     this.getAvatar();
-    
+
 
   }
 
@@ -152,7 +152,7 @@ export class DashboardComponent {
       next: (data: any) => {
         if (data?.EncryptedResponse?.status_code === 200) {
           const blogs = data.EncryptedResponse.data;
-  
+
           this.blogs = blogs.map((blog: any) => {
             const avatar = blog.createdBy?.avatar?.icon
               ? this.cs.baseURL + blog.createdBy.avatar.icon
@@ -166,15 +166,15 @@ export class DashboardComponent {
       }
     });
   }
-  
+
   updateBlog() {
 
     let obj = {
-      blog_id : this.selectedBlog._id,
-      updatedData : this.blogForm.value,
+      blog_id: this.selectedBlog._id,
+      updatedData: this.blogForm.value,
     }
 
-    
+
     this.cs.postWithAuth('blog/updateById', obj).subscribe(
       (data: any) => {
         if (data?.EncryptedResponse?.status_code === 200) {
@@ -214,14 +214,14 @@ export class DashboardComponent {
       (data: any) => {
         if (data?.EncryptedResponse?.status_code === 200) {
           const blogs = data.EncryptedResponse.data;
-  
+
           this.blogs = blogs.map((blog: any) => {
             const avatar = blog.createdBy?.avatar?.icon
               ? this.cs.baseURL + blog.createdBy.avatar.icon
               : '../../../assets/maleAvatar.png';
             return { ...blog, avatarUrl: avatar };
           });
-        }  else {
+        } else {
           // Handle other error statuses
           // this.openSnackbar("Unexpected error occurred while fetching blogs.");
         }
@@ -237,7 +237,7 @@ export class DashboardComponent {
 
   filterBlogs(filter: number) {
     this.selectedFilter = filter;
-  
+
     if (filter === 0) {
       this.getBlogs();
     } else {
@@ -247,13 +247,13 @@ export class DashboardComponent {
 
   openMenu(event: MouseEvent, blogId: string, menu: Menu) {
     // this.selectedBlogId = blogId;
-  
+
     setTimeout(() => {
       menu.toggle(event); // ensure it's a MouseEvent
     }, 0);
   }
-  
-  
+
+
 
 
   editBlog(blog: any) {
@@ -268,12 +268,12 @@ export class DashboardComponent {
     });
 
     this.isEditBlog = true;
-    
+
     this.displayDialog = true;
 
 
   }
-  
+
 
   // Close the dialog without saving
   onCancel() {
@@ -282,7 +282,7 @@ export class DashboardComponent {
   }
 
 
-  viewDetails(blog : any) {
+  viewDetails(blog: any) {
     this.dialog.open(BlogDetailsComponent, {
       data: {
         blog: blog,
@@ -299,7 +299,7 @@ export class DashboardComponent {
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    
+
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       if (file.type.startsWith('image/')) {
@@ -312,12 +312,12 @@ export class DashboardComponent {
   }
 
   onImageCropped(event: ImageCroppedEvent): void {
-    
+
     if (event?.blob) {
       // Convert the blob to base64
       this.blobToBase64(event.blob).then((base64: string) => {
         this.croppedImage = base64;
-       
+
       }).catch(error => {
         console.error("Error converting blob to base64: ", error);
       });
@@ -325,7 +325,7 @@ export class DashboardComponent {
       console.warn("No blob found in cropped event.");
     }
   }
-  
+
   // Helper function to convert Blob to Base64
   blobToBase64(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -337,21 +337,21 @@ export class DashboardComponent {
       reader.readAsDataURL(blob);  // Convert the blob to base64
     });
   }
-  
-  
 
-  
+
+
+
 
   saveCroppedImage(): void {
     if (!this.croppedImage) {
       console.warn("No cropped image to upload.");
       return;
     }
-  
+
     const formData = new FormData();
     formData.append("avatar", this.base64ToFile(this.croppedImage, 'avatar.png'));
-  
-    this.cs.postFileWithAuth('user/uploadAvatar', formData).subscribe((data : any) => {
+
+    this.cs.postFileWithAuth('user/uploadAvatar', formData).subscribe((data: any) => {
       if (data?.EncryptedResponse?.status_code === 200) {
 
         this.showCropper = false;
@@ -365,25 +365,25 @@ export class DashboardComponent {
       console.error('Error uploading image:', error);
     });
   }
-  
-  
-  
-  
+
+
+
+
   private base64ToFile(dataUrl: string, filename: string): File {
     const arr = dataUrl.split(',');
     const mime = arr[0].match(/:(.*?);/)![1];
     const bstr = atob(arr[1]);
     let n = bstr.length;
     const u8arr = new Uint8Array(n);
-  
+
     while (n--) {
       u8arr[n] = bstr.charCodeAt(n);
     }
-  
+
     return new File([u8arr], filename, { type: mime });
   }
 
-  
+
   private resetFileInput(): void {
     if (this.fileInput) {
       this.fileInput.nativeElement.value = '';
@@ -401,7 +401,7 @@ export class DashboardComponent {
 
   getIcon() {
     const userId = this.currentUser._id;
-  
+
     this.cs.getWithAuth(`user/avatar/${userId}`).subscribe({
       next: (data: any) => {
 
@@ -421,12 +421,12 @@ export class DashboardComponent {
 
   getAvatar() {
     const userId = this.currentUser._id;
-  
+
     this.cs.getWithAuth(`user/avatar/${userId}`).subscribe({
       next: (data: any) => {
 
         if (data?.avatar?.full) {
-          this.userAvatarUrl = this.cs.baseURL + data.avatar.full;
+          this.userAvatarUrl = data.avatar.full;
 
         } else {
           this.userAvatarUrl = ''; // fallback will be used in HTML
@@ -438,7 +438,7 @@ export class DashboardComponent {
       }
     });
   }
-  
+
 
 
   openSnackbar(message: string) {

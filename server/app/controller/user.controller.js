@@ -8,6 +8,20 @@ const multer = require('multer');
 const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
+// const AWS = require('aws-sdk');
+const { S3Client, DeleteObjectCommand } = require('@aws-sdk/client-s3');
+
+
+// Configure AWS SDK v3 with credentials
+const s3 = new S3Client({
+  region: 'eu-north-1', // This should be 'eu-north-1'
+  endpoint: 'https://s3.eu-north-1.amazonaws.com',
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+  forcePathStyle: false, // 👈 usually false unless using localstack or similar
+});
 
 class UserController {
   static async register(req, res) {
@@ -68,62 +82,117 @@ class UserController {
   }
 
 
+  // static uploadAvatar = async (req, res) => {
+  //   try {
+
+  //     const file = req.file;
+  //     const userId = req.user.id;
+      
+  //     if (!userId || !file) {
+  //       return response(res, "Requested Data is Missing", 400);
+  //     }
+      
+  //     const avatarDir = path.join(__dirname, '../../../../userAvatars');
+  //     const fullFilename = `full_${file.filename}`;
+  //     const iconFilename = `icon_${file.filename}`;
+  //     const fullPath = path.join(avatarDir, fullFilename);
+  //     const iconPath = path.join(avatarDir, iconFilename);
+      
+  //     const existingUser = await User.findById(userId).select('avatar');
+  //     const oldFull = existingUser?.avatar?.full;
+  //     const oldIcon = existingUser?.avatar?.icon;
+  
+  //     const tryDelete = (filePath) => {
+  //       const resolvedPath = path.resolve(__dirname, '../../../../', filePath);
+  //       if (filePath && fs.existsSync(resolvedPath)) {
+  //         fs.unlinkSync(resolvedPath);
+  //       }
+  //     };
+  
+  //     tryDelete(oldFull);
+  //     tryDelete(oldIcon);
+
+  //     await sharp(file.path).resize(100, 100).toFile(iconPath);
+  //     fs.renameSync(file.path, fullPath);
+  
+  //     const updatedUser = await User.findByIdAndUpdate(
+  //       userId,
+  //       {
+  //         avatar: {
+  //           full: `userAvatars/${fullFilename}`,
+  //           icon: `userAvatars/${iconFilename}`,
+  //         },
+  //       },
+  //       { new: true }
+  //     );
+  
+  //     if (!updatedUser) {
+  //       return response(res, "Data not saved", 404);
+  //     }
+  
+  //     return response(res, "Data Updated", 200);
+  
+  //   } catch (err) {
+  //     console.error('Upload error:', err); // ← Add this
+  //     res.status(500).json({ message: 'Something went wrong' });
+  //   }
+    
+  // };
+
+
   static uploadAvatar = async (req, res) => {
     try {
-
       const file = req.file;
       const userId = req.user.id;
-      
-      if (!userId || !file) {
+    
+      if (!userId || !file || !file.location) {
         return response(res, "Requested Data is Missing", 400);
       }
-      
-      const avatarDir = path.join(__dirname, '../../../../userAvatars');
-      const fullFilename = `full_${file.filename}`;
-      const iconFilename = `icon_${file.filename}`;
-      const fullPath = path.join(avatarDir, fullFilename);
-      const iconPath = path.join(avatarDir, iconFilename);
-      
+    
       const existingUser = await User.findById(userId).select('avatar');
-      const oldFull = existingUser?.avatar?.full;
-      const oldIcon = existingUser?.avatar?.icon;
-  
-      const tryDelete = (filePath) => {
-        const resolvedPath = path.resolve(__dirname, '../../../../', filePath);
-        if (filePath && fs.existsSync(resolvedPath)) {
-          fs.unlinkSync(resolvedPath);
-        }
-      };
-  
-      tryDelete(oldFull);
-      tryDelete(oldIcon);
-
-      await sharp(file.path).resize(100, 100).toFile(iconPath);
-      fs.renameSync(file.path, fullPath);
-  
+      const oldUrl = existingUser?.avatar?.full;
+    
+      if (oldUrl) {
+        console.log('Old URL:', oldUrl); // Log the old avatar URL
+        const urlParts = oldUrl.split('/');
+        const keyIndex = urlParts.findIndex(part => part === 'userAvatars');
+        const key = urlParts.slice(keyIndex).join('/'); // e.g., userAvatars/avatar_168...png
+    
+        const params = {
+          Bucket: 'myblognestbucket', // your S3 bucket name
+          Key: key
+        };
+    
+        console.log('Deleting object from S3 with key:', key); // Log the S3 object key
+    
+        await s3.send(new DeleteObjectCommand(params)); // Delete old avatar from S3
+      }
+    
+      // Update user avatar in DB
       const updatedUser = await User.findByIdAndUpdate(
         userId,
         {
           avatar: {
-            full: `userAvatars/${fullFilename}`,
-            icon: `userAvatars/${iconFilename}`,
+            full: file.location,
+            icon: file.location // using same image for both
           },
         },
         { new: true }
       );
-  
+    
       if (!updatedUser) {
         return response(res, "Data not saved", 404);
       }
-  
+    
       return response(res, "Data Updated", 200);
-  
+    
     } catch (err) {
-      console.error('Upload error:', err); // ← Add this
+      console.error('Upload error:', err);
       res.status(500).json({ message: 'Something went wrong' });
     }
-    
   };
+  
+  
 
 
   static getUserAvatar = async (req, res) => {

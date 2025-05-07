@@ -1,28 +1,35 @@
 const multer = require('multer');
+const multerS3 = require('multer-s3');
+const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const path = require('path');
-const fs = require('fs');
 
-// Set destination folder
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const dir = path.join(__dirname, '../../../../userAvatars');
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    cb(null, dir);
+// Configure AWS SDK v3 with credentials
+const s3 = new S3Client({
+  region: 'eu-north-1', // This should be 'eu-north-1'
+  endpoint: 'https://s3.eu-north-1.amazonaws.com',
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
-  filename: function (req, file, cb) {
-    const ext = file.mimetype.split('/')[1];
-    const uniqueName = `avatar_${Date.now()}.${ext}`;
-    cb(null, uniqueName);
-  }
+  forcePathStyle: false, // 👈 usually false unless using localstack or similar
 });
 
 const upload = multer({
-  storage,
+  storage: multerS3({
+    s3: s3,
+    bucket: 'myblognestbucket', // your S3 bucket name
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    key: function (req, file, cb) {
+      const ext = path.extname(file.originalname);
+      const uniqueName = `userAvatars/avatar_${Date.now()}${ext}`;
+      console.log("Generated S3 Key:", uniqueName);  // 👈 Debug
+      cb(null, uniqueName);
+    }
+    
+  }),
   fileFilter: function (req, file, cb) {
     const isImage = file.mimetype.startsWith('image/');
-    cb(null, isImage);
+    cb(null, isImage); // accept only image files
   }
 });
 
