@@ -24,6 +24,16 @@ const s3 = new S3Client({
 });
 
 class UserController {
+
+  static async wakeUp(req, res) {
+    try {
+      return response(res, "WakeUp Successfully!", 200);
+    } catch (err) {
+      return response(res, "Server Error", 500, { message: err.message });
+    }
+  }
+
+
   static async register(req, res) {
     try {
       const { email, password, name, username } = req.body;

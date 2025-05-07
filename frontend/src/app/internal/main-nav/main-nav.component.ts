@@ -19,6 +19,12 @@ export class MainNavComponent {
     }
   }
 
+
+  getUser() {
+    
+  }
+
+
   logout() {
     localStorage.clear();
     sessionStorage.clear();

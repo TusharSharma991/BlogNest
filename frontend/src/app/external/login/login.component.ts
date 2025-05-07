@@ -40,6 +40,12 @@ export class LoginComponent {
     });
   }
 
+
+  ngOnInit(): void {
+
+    this.wakeUp();
+  }
+
   onSubmit() {
     if (!this.loginForm.valid) {
       this.showSnackbar("Please fill all the values!");
@@ -71,6 +77,22 @@ export class LoginComponent {
       }
     });
     
+  }
+
+
+  wakeUp() {
+    this.cs.wakeUp().subscribe(
+      (data: any) => {
+        if (data?.EncryptedResponse?.status_code === 200) {
+
+         
+         
+        }  else {
+          // Handle other error statuses
+          // this.openSnackbar("Unexpected error occurred while fetching blogs.");
+        }
+      },
+    );
   }
   
 

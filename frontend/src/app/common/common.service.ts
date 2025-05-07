@@ -11,6 +11,11 @@ export class CommonService {
 
   constructor(private http: HttpClient) {}
 
+
+  wakeUp(): Observable<any> {
+    return this.http.post<any>(`${this.baseURL}api/wakeUp`, {});
+  }
+
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.baseURL}user/authenticate`, { username, password });
   }

@@ -42,44 +42,53 @@ class BlogController {
     static async getCommentsByBlogId(req, res) {
         try {
             const blogId = req.params.id;
-
+    
             if (!blogId) {
                 return response(res, "Requested Data Missing", 400);
             }
-
+    
             const comments = await Comment.find({ blog: blogId })
-                .sort({ created_at: 1 })  
-                .populate('user', 'name email avatar'); 
-
+                .sort({ created_at: 1 })  // Optional: oldest to newest
+                .populate('user', 'name email avatar');
+    
             if (!comments || comments.length === 0) {
                 return response(res, "No comments found for this blog", 404);
             }
-
+    
+            // Step 1: Create a map of all comments by ID
             const commentMap = {};
-            const topLevelComments = [];
-
             comments.forEach(comment => {
-                const plainComment = comment.toObject(); 
-                plainComment.replies = []; 
+                const plainComment = comment.toObject();
+                plainComment.replies = [];
                 commentMap[plainComment._id] = plainComment;
             });
-
-     
-            Object.values(commentMap).forEach(comment => {
-                if (comment.parentComment) {
-                    const parent = commentMap[comment.parentComment];
-                    if (parent) {
-                        parent.replies.push(comment);
+    
+            // Step 2: Recursively nest replies
+            const nestComments = () => {
+                const nestedComments = [];
+    
+                Object.values(commentMap).forEach(comment => {
+                    if (comment.parentComment) {
+                        const parent = commentMap[comment.parentComment];
+                        if (parent) {
+                            parent.replies.push(comment);
+                        }
+                    } else {
+                        nestedComments.push(comment); // root comments
                     }
-                } else {
-                    topLevelComments.push(comment);
-                }
-            });
-            return response(res, "Comments fetched successfully", 200, topLevelComments);
+                });
+    
+                return nestedComments;
+            };
+    
+            const nestedCommentTree = nestComments();
+    
+            return response(res, "Comments fetched successfully", 200, nestedCommentTree);
         } catch (err) {
             return response(res, "Server Error", 500, { message: err.message });
         }
     }
+    
 
 
 

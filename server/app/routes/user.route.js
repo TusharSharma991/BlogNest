@@ -4,6 +4,9 @@ const upload = require('../middlewares/uploadAvatar');
 const auth = require('../middlewares/auth');
 
 module.exports = app => {
+
+    app.post('/api/wakeUp', UserController.wakeUp);
+
     app.post('/user/register', UserController.register);
     app.post('/user/authenticate', UserController.authenticate);
 

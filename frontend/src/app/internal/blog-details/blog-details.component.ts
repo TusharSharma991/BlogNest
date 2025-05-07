@@ -91,6 +91,7 @@ export class BlogDetailsComponent {
         if (data?.EncryptedResponse?.status_code === 201) {
           this.openSnackbar("comment posted successfully!");
           this.comment = '';
+          this.getComments();
        
         } else if (data?.EncryptedResponse?.status_code === 400) {
           // Handle validation error (e.g., missing title or description)
